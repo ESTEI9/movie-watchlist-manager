@@ -1,0 +1,5 @@
+<mat-card>
+    <mat-icon matTooltip="Remove" (click)="delete()">close</mat-icon>
+    <img (click)="viewDetails()" mat-card-image [ngSrc]="movie!.poster_path" fill priority/>
+    <mat-checkbox color="primary" [matTooltip]="movie!.archived ? 'Restore' : 'Archive'" [checked]="movie?.archived" (change)="movie!.archived ? restore() : archive()"></mat-checkbox>
+</mat-card>

@@ -1,0 +1,53 @@
+<mat-drawer-container>
+    <mat-drawer-content>
+        @if(loading === false) {
+        <h1><mat-icon matPrefix>movie</mat-icon> Movie Watchlist</h1>
+        <app-search #search [watchList]="watchList$" [genres]="genres" (addMovie)="addToList($event)" (search)="searchMovies($event)"></app-search>
+        <mat-tab-group dynamicHeight preserveContent>
+            <mat-tab [label]="getLabel('Current', queuedMovies.length)">
+                <ng-template matTabContent>
+                    <section class="mat-card-list">
+                        @for(movie of queuedMovies; track movie) {
+                            <app-movie
+                                [movie]="movie"
+                                (remove)="removeFromList(movie)"
+                                (archive)="archiveMovie(movie)"
+                                (open)="viewDetails(movie)"
+                            ></app-movie>
+                        }
+                        @if(queuedMovies.length === 0) { <span class="empty-list">Your Watch List is Empty. Search to get started!<button (click)="search.focus()" mat-flat-button color="primary"><mat-icon matPrefix>search</mat-icon>Search</button></span> }
+                    </section>
+                </ng-template>
+            </mat-tab>
+            <mat-tab [label]="getLabel('Watched', archivedMovies.length)">
+                <ng-template matTabContent>
+                    <section class="mat-card-list">
+                        @for(movie of archivedMovies; track movie) {
+                            <app-movie
+                                [movie]="movie"
+                                (remove)="removeFromList(movie)"
+                                (restore)="restoreMovie(movie)"
+                                (open)="viewDetails(movie)"
+                            ></app-movie>
+                        }
+                        @if(archivedMovies.length === 0) { <span class="empty-list">No Archived Movies</span> }
+                    </section>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    } @else {
+        <span class="loading"><mat-spinner diameter="60" color="primary"></mat-spinner>Loading Application...</span>
+    }
+    </mat-drawer-content>
+    <mat-drawer position="end" mode="over" #drawer>
+        <app-details
+            *ngIf="currentMovie"
+            [movie]="currentMovie"
+            [genres]="genres"
+            (remove)="removeFromList(currentMovie!)"
+            (restore)="restoreMovie(currentMovie!)"
+            (archive)="archiveMovie(currentMovie!)"
+        ></app-details>
+    </mat-drawer>
+</mat-drawer-container>
+

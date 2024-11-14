@@ -1,0 +1,65 @@
+<form [formGroup]="form">
+    <mat-form-field>
+        <input #input id="title" matInput type="text" placeholder="Search Films..." formControlName="title" />
+        <mat-icon matSuffix *ngIf="form.controls.title.value" (click)="clear()">close</mat-icon>
+    </mat-form-field>
+</form>
+<div class="results" *ngIf="input.value">
+    @if(currentSearchedMovies.length > 0 || newSearchedMovies.length > 0) {
+        @if(currentSearchedMovies.length > 0) {
+            <section class="current">
+                <h4>Current Titles</h4>
+                <ul>
+                    <ng-container
+                        *ngFor="let movie of currentSearchedMovies"
+                        [ngTemplateOutlet]="movieItem"
+                        [ngTemplateOutletContext]="{ $implicit: movie, current: true }">
+                    </ng-container>
+                </ul>
+            </section>
+        }
+        @if(newSearchedMovies.length > 0) {
+            <section class="new">
+                <h4>New Titles</h4>
+                <ul>
+                    <ng-container
+                        *ngFor="let movie of newSearchedMovies"
+                        [ngTemplateOutlet]="movieItem"
+                        [ngTemplateOutletContext]="{ $implicit: movie, current: false }">
+                    </ng-container>
+                </ul>
+            </section>
+        }
+    } @else {
+        @if(loading) {
+            <span class="loading"><mat-spinner diameter="20"></mat-spinner>Searching...</span>
+        } @else {
+            <span class="empty-list">No Matching Results</span>
+        }
+        
+    }
+</div>
+
+<ng-template #movieItem let-movie let-current="current">
+    <li class="movie-item" #item>
+        <section class="top">
+            <button class="add-button" *ngIf="!current" mat-flat-button color="primary" (click)="addMovie.emit(movie)"><mat-icon matIconPrefix>add</mat-icon>Watchlist</button>
+            <div class="poster" (click)="viewPoster(movie.poster_path)">
+                @if(movie.poster_path) {
+                    <img [ngSrc]="movie.poster_path" fill>
+                }
+            </div>
+            <span class="meta">
+                <div class="title">Title: {{movie.title}} <mat-icon *ngIf="movie.archived" class="archived" matTooltip="Watched">check</mat-icon></div>
+                <div class="release">Released: {{ movie.release_date | date: 'YYYY' }}</div>
+                <div class="rating">Rating: {{ Math.floor(movie.vote_average) }}/10</div>
+                <mat-chip-set class="genres">
+                    @for(genre of movie.genre_ids; track genre) { 
+                        <mat-chip [innerText]="getGenre(genre)"></mat-chip> 
+                    }
+                </mat-chip-set>
+            </span>
+        </section>
+        <section class="bottom">{{movie.overview}}</section>
+    </li>
+</ng-template>

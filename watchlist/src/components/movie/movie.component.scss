@@ -1,0 +1,48 @@
+:host {
+    margin: 1em;
+    position: relative;
+    height: 150px;
+    width: 100px;
+
+    mat-card {
+        width: inherit;
+        height: inherit;
+        position: relative;
+
+        img {
+            object-fit: contain;
+            border-radius: inherit;
+        }
+
+        mat-icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+            background: white;
+            padding: 0.1em;
+            border-bottom-left-radius: 0.5em;
+            border-top-right-radius: 0.4em;
+            border: 1px solid gray;
+            border-top: none;
+            border-right: none;
+        }
+
+        mat-checkbox {
+            position: absolute;
+            right: 2px;
+            bottom: 2px;
+            background-color: whitesmoke;
+            --mdc-checkbox-state-layer-size: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+
+            ::ng-deep {
+                .mdc-checkbox__background {
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+}

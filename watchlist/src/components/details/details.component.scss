@@ -1,0 +1,70 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    mat-chip-set {
+        margin-top: 0.5em;
+    }
+
+    mat-chip {
+        max-height: 16px;
+        margin: 0 0.25em;
+        cursor: default;
+        background: whitesmoke;
+        border: 1px solid gray;
+        border-radius: 2em;
+        padding: 0.3em;
+        font-size: small;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+    
+    h2 {
+        margin: 0;
+    }
+
+    .poster {
+        flex-basis: 60%;
+        width: 100%;
+        position: relative;
+    }
+
+    .description {
+        flex-basis: 40%;
+        padding: 1em;
+        position: relative;
+
+        &::before {
+            content: '';
+            height: 20px;
+            background: linear-gradient(0deg, whitesmoke, transparent);
+            width: 100%;
+            display: block;
+            position: absolute;
+            left: 0;
+            top: -20px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1em;
+
+        button {
+            margin-bottom: 0.5em;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

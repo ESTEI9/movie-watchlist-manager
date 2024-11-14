@@ -1,0 +1,17 @@
+<section class="poster">
+    <img [ngSrc]="movie!.poster_path" fill />
+</section>
+<section class="description">
+    <h2>{{ movie!.title }}</h2>
+    <ul>
+        <li>Released: {{ movie!.release_date | date: 'YYYY' }}</li>
+        <li>Rating: {{ Math.floor(movie!.vote_average) }}/10</li>
+        <li><mat-chip-set>@for(genre of movie!.genre_ids; track genre) { <mat-chip [innerText]="getGenre(genre)"></mat-chip> }</mat-chip-set></li>
+    </ul>
+    <div>{{movie!.overview}}</div>
+    <div class="actions">
+        <button mat-flat-button color="primary" *ngIf="movie!.archived" (click)="restore()">Restore</button>
+        <button mat-flat-button color="primary" *ngIf="!movie!.archived" (click)="archive()">Mark as Watched</button>
+        <button mat-stroked-button (click)="delete()">Remove</button>
+    </div>
+</section>
