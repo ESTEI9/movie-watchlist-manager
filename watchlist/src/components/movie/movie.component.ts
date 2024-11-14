@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Movie } from '../../models/movie.model';
 import { MaterialModule } from '../../modules/material/material.module';
 import { CommonModule, IMAGE_LOADER, ImageLoaderConfig, NgOptimizedImage } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {  MatDialog } from '@angular/material/dialog';
 import { tap } from 'rxjs';
 import { Genre } from '../../models/genre.model';
 import { RemoveDialog } from '../remove-dialog/remove-dialog.component';

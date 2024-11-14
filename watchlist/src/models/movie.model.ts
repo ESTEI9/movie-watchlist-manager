@@ -75,7 +75,7 @@ export class Movie {
      */
     archived: boolean = false;
 
-    constructor(params: Movie) {
+    constructor(params?: Partial<Movie>) {
         Object.assign(this, params);
     }
 }
